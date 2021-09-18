@@ -1,0 +1,9 @@
+read  ( A, 4) ; % hieuaor
+g := a ! a ; { oi{s% hieuaodf
+e}4oj 
+qj3}
+write ( a, 2) ; % jweoirj
+s := {jofejf} a ! b;
+B := \A; { oi{s% hieuaodf
+e}4oj 
+qj3} asgafa;

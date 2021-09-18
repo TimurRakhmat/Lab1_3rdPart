@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{cbf71431-adaf-4a9f-af7e-5282d19e5c82}</ProjectGuid>
-    <RootNamespace>Lab13rdSEmen</RootNamespace>
+    <ProjectGuid>{faba5901-1718-4ba4-a7dd-9ed4aab9c50c}</ProjectGuid>
+    <RootNamespace>lab13rdSemen4step</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Lab1_3rdSemen</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -140,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Lab1_3rdSemen.cpp" />
+    <ClCompile Include="lab1_3rdSemen_4step.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

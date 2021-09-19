@@ -11,7 +11,7 @@ void print_map(map<char*, int>);
 
 int main() 
 {
-    char substr[] = "asu\nasu";
+    char substr[] = "";
     print_map(findtr(find_sub, substr, 3, "book.txt", "map.txt", "table.txt"));
 }
 

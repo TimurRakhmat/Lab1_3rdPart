@@ -1,3 +1,4 @@
+0 - CC1; 10base- 0
 23wouro2 - CC33; 10base- 198879632
 234ewr - CC33; 10base- 81988626
 391823 - CC10; 10base- 391823
@@ -9,3 +10,4 @@ FF - CC16; 10base- 255
 AA - CC11; 10base- 120
 1000 - CC2; 10base- 8
 111 - CC2; 10base- 7
+ - CC1; 10base- 0

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lab1_3rdSemen_6step.cpp">
+    <ClCompile Include="lab1_3rdPart_6step.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

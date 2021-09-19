@@ -25,8 +25,7 @@ int main(int argc, char** argv)
             ++p;
         }
         max_base++;
-        if (max_base - 1)
-            fon << buf << " - CC" << max_base << "; 10base- " << gorner(max_base, buf) << endl;
+        fon << buf << " - CC" << max_base << "; 10base- " << gorner(max_base, buf) << endl;
     }
 }
 

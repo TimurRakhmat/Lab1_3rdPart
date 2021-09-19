@@ -128,14 +128,14 @@ bool parser(string buf)
 	{
 		string right = buf.substr(3);
 		if (right.length() < 2)
-			throw MyException("BAD INSTRICTION ERROR");
+			throw MyException("BAD INSTRUCTION ERROR");
 		if (right.length() == 2)
 			parser_neg(buf[0], right);
 		else
 			parser_bin(buf[0], right);
 	}
 	else
-		throw MyException("BAD INSTRICTION ERROR");
+		throw MyException("BAD INSTRUCTION ERROR");
 
 	return true;
 }

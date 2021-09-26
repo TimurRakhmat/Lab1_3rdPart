@@ -1,0 +1,18 @@
+1)READ(A,2)
+input variable A - 12
+2)G:=A!A
+input variable A: 12, A: 12 result: variable G: 3
+3)WRITE(G,2)
+output variable G in base: 2
+4)READ(B,2)
+input variable B - 5
+5)WRITE(A,2)
+output variable A in base: 2
+6)S:=A!B
+input variable A: 12, B: 5 result: variable S: 2
+7)WRITE(S,10)
+output variable S in base: 10
+8)B:=/A
+input variable A: 12 result: variable B: 3
+9)WRITE(B,2)
+output variable B in base: 2

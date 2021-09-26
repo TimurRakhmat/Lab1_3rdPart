@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab1_3rdPart_1step", "lab1_3rdPart_1step\lab1_3rdSemen_1step.vcxproj", "{CBF71431-ADAF-4A9F-AF7E-5282D19E5C82}"
-EndProject                                                                         
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab1_3rdPart", "lab1_3rdPart_1step\lab1_3rdSemen_1step.vcxproj", "{CBF71431-ADAF-4A9F-AF7E-5282D19E5C82}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab1_3rdPart_2step", "lab1_3rdPart_2step\lab1_3rdSemen_2step.vcxproj", "{0D360313-36B5-4D10-B6E4-357DB375B454}"
-EndProject                                                                         
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab1_3rdPart_3step", "lab1_3rdPart_3step\lab1_3rdSemen_3step.vcxproj", "{E698B95D-3077-4B98-9588-6F3F300FF0B3}"
-EndProject                                                                         
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab1_3rdPart_4step", "lab1_3rdPart_4step\lab1_3rdSemen_4step.vcxproj", "{FABA5901-1718-4BA4-A7DD-9ED4AAB9C50C}"
-EndProject                                                                         
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab1_3rdPart_5step", "lab1_3rdPart_5step\lab1_3rdSemen_5step.vcxproj", "{A69CDA2A-4B2F-4C94-BB7C-DC69DBC5FA7C}"
-EndProject                                                                         
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab1_3rdPart_6step", "lab1_3rdPart_6step\lab1_3rdSemen_6step.vcxproj", "{B39AA937-716E-4C11-B9BE-EF2B0D24EC5B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testing", "testing\testing.vcxproj", "{E29353DE-3EEA-4E82-AEBA-0D8FEA78C86E}"

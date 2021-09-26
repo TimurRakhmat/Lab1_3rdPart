@@ -2,49 +2,38 @@
 //
 
 #include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
 
-void last() // вызывается функцией three()
+char get_chr(int total)
 {
-    std::cout << "Start last\n";
-    std::cout << "last throwing int exception\n";
-    throw -1;
-    std::cout << "End last\n";
- 
+    return (char)((total < 10) ? total + '0' : total + 'A' - 10);
 }
- 
-void three() // вызывается функцией two()
+
+string in_gorner(int base, int num)
 {
-    std::cout << "Start three\n";
-    last();
-    std::cout << "End three\n";
+    string ans = "";
+    while (num) {
+        ans = get_chr(num % base) + ans;
+        num /= base;
+    }
+    if (ans == "")
+        ans += '0';
+    return ans;
 }
- 
-void two() // вызывается функцией one()
-{
-    std::cout << "Start two\n";
-    three();
-    std::cout << "End two\n";
-}
- 
-void one() // вызывается функцией main()
-{
-    std::cout << "Start one\n";
-    two();
-    std::cout << "End one\n";
-}
+
  
 int main()
 {
-    std::cout << "Start main\n";
-    try
-    {
-        one();
+    int a = 6;
+    unsigned int b = 8;
+    int p;
+
+    for (int i = 0; i < 50; i++) {
+        int g = (1 + (int)(log(i) / log(2)));
+        p = (1 << g) - 1;
+        cout << in_gorner(2, i) << " - "  << in_gorner(2, (p ^ i)) << " - " << g << endl;
     }
-    catch (int)
-    {
-         std::cerr << "main caught int exception\n";
-    }
-    std::cout << "End main\n";
- 
     return 0;
 }

@@ -5,6 +5,14 @@
 
 using namespace std;
 
+const auto LOG2N = 1/log(2);
+
+// logfile variables
+int number_insrtuction = 1;
+bool is_trace = false;
+ofstream tr_out;
+
+
 bool parser(string);
 void read_pern(string);
 void parser_neg(char, string);
@@ -21,10 +29,11 @@ int xor2(int, int);
 int koimplication(int, int);
 int sheffer(int, int);
 int pirs(int, int);
+int not_a(int);
 int get_dig(char);
 char get_chr(int);
 const int dA = 'Z' - 'A' + 1;
-int matrix[dA];
+unsigned int matrix[dA];
 
 
 int main(int argc, char** argv) 
@@ -38,9 +47,7 @@ int main(int argc, char** argv)
 	char* fname = argv[1];
 	char* tr_name = nullptr;
 	ifstream fin(fname);
-	ofstream tr_out;
 
-	bool is_trace = false;
 	if (argc > 2)
 	{
 		char* trace = argv[2];
@@ -100,12 +107,16 @@ int main(int argc, char** argv)
 				}
 				else
 				{
+					if (is_trace)
+						tr_out << number_insrtuction++ << ')' << buf << '\n';
 					parser(buf);
 					buf = "";
 				}
 		}
 	}
 	catch (MyException exc) {
+		if (is_trace)
+			tr_out << '\n' << exc.what() << endl;
 		cout << '\n' << exc.what() << endl;
 	}
 	catch (...) {
@@ -146,7 +157,11 @@ int gorner(int base, char* str)
 	while (*str)
 	{
 		char bchr = *str;
-		ans = ans * base + get_dig(bchr);
+		ans *= base;
+		int der = get_dig(bchr);
+		if (der >= base or der < 0)
+			throw MyException("ERROR: incorrect base");
+		ans += der;
 		str++;
 	}
 	return ans;
@@ -159,6 +174,8 @@ string in_gorner(int base, int num)
 		ans = get_chr(num % base) + ans;
 		num /= base;
 	}
+	if (ans == "")
+		ans += '0';
 	return ans;
 }
 
@@ -174,7 +191,7 @@ int diz(int a, int b)
 
 int implication(int a, int b)
 {
-	return ~a | b;
+	return not_a(a) | b;
 }
 
 int reimplication(int a, int b)
@@ -184,7 +201,7 @@ int reimplication(int a, int b)
 
 int xnor(int a, int b)
 {
-	return (~a & ~b) | (a & b);
+	return (not_a(a) & not_a(b)) | (a & b);
 }
 
 int xor2(int a, int b)
@@ -194,17 +211,23 @@ int xor2(int a, int b)
 
 int koimplication(int a, int b)
 {
-	return ~implication(a, b);
+	return not_a(implication(a, b));
 }
 
 int sheffer(int a, int b)
 {
-	return ~a | ~b;
+	return not_a(a) | not_a(b);
 }
 
 int pirs(int a, int b)
 {
-	return ~a & ~b;
+	return not_a(diz(a, b));
+}
+
+int not_a(int i)
+{
+	int p = (1 << (1 + (int)(log(i) * LOG2N))) - 1; // создаем число по типу: 111111...
+	return (p ^ i);
 }
 
 void read_pern(string buf)
@@ -222,7 +245,7 @@ void read_pern(string buf)
 	int base = 0;
 	do {
 		if (isdigit(buf[i]))
-			base += base * 10 + buf[i] - '0';
+			base = base * 10 + buf[i] - '0';
 		else
 			throw MyException("BAD INPUT EQUATION ERROR");
 		i++;
@@ -230,10 +253,15 @@ void read_pern(string buf)
 	if (buf[i] != ')')
 		throw MyException("BAD INPUT EQUATION ERROR");
 
+	if (base > 36 or base < 2)
+		throw MyException("ERROR: incorrect base");
+
 	char buf_per[64];
 	printf("input %c: ", per);
 	cin >> buf_per;
 	matrix[per - 'A'] = gorner(base, buf_per);
+	if (is_trace)
+		tr_out << "input variable " << per << " - " << matrix[per - 'A'] << endl;
 	return;
 }
 
@@ -241,26 +269,31 @@ void write_pern(string buf)
 {
 	int ln = buf.length();
 	if (ln < 5)
-		throw MyException("BAD INPUT EQUATION ERROR");
+		throw MyException("BAD OUTPUT EQUATION ERROR");
 	char per;
 	if (buf[0] == '(' && isalpha(buf[1]) && buf[2] == ',')
 		per = buf[1];
 	else
-		throw MyException("BAD INPUT EQUATION ERROR");
+		throw MyException("BAD OUTPUT EQUATION ERROR");
 
 	int i = 3;
 	int base = 0;
 	do {
 		if (isdigit(buf[i]))
-			base += base * 10 + buf[i] - '0';
+			base = base * 10 + buf[i] - '0';
 		else
-			throw MyException("BAD INPUT EQUATION ERROR");
+			throw MyException("BAD OUTPUT EQUATION ERROR");
 		i++;
 	} while (i < ln - 1);
 	if (buf[i] != ')')
-		throw MyException("BAD INPUT EQUATION ERROR");
+		throw MyException("BAD OUTPUT EQUATION ERROR");
+
+	if (base > 36 or base < 2)
+		throw MyException("ERROR: incorrect base");
 
 	cout << per << " - " << in_gorner(base, matrix[per - 'A']) << endl;
+	if (is_trace)
+		tr_out << "output variable " << per << " in base: " << base << endl;
 }
 
 
@@ -277,10 +310,45 @@ char get_chr(int total)
 void parser_neg(char ch, string buf)
 {
 	if (isalpha(buf[1]) and buf[0] == '/')
-		matrix[ch - 'A'] = ~matrix[ch - 'A'];
+	{
+		matrix[ch - 'A'] = not_a(matrix[buf[1] - 'A']);
+		if (is_trace)
+			tr_out << "input variable " << buf[1] << ": " << matrix[buf[1] - 'A'] << " result: variable "\
+			<< ch << ": " << matrix[ch - 'A'] << endl;
+	}
+	else
+		throw MyException("UNNAR EQUATION ERROR");
 }
 
 void parser_bin(char ch, string buf)
 {
-	//op_vector =
+	string op_vector[] = { "+", "&", "->", "<-", "~", "<>", "+>", "?", "!" };
+	int (*func[])(int, int) = { con, diz, implication, reimplication, xnor, xor2, koimplication, sheffer, pirs };
+	int op_cnt = 9;
+	int ln = buf.length();
+	if (ln > 4)
+		throw MyException("BINNAR EQUATION ERROR");
+
+	if (!(isalpha(buf[0]) and isalpha(buf[ln - 1])))
+	{
+		throw MyException("BINNAR EQUATION ERROR");
+	}
+
+	int a, b;
+	a = matrix[buf[0] - 'A'];
+	b = matrix[buf[ln - 1] - 'A'];
+
+	for (int i = 0; i < op_cnt; i++)
+	{
+		if (buf.find(op_vector[i]) == 1 and op_vector[i].length() == ln - 2)
+		{
+			matrix[ch - 'A'] = func[i](a, b);
+			if (is_trace)
+				tr_out << "input variable " << buf[0] << ": " << a << ", " << buf[ln - 1] << ": " << b << " result: variable "\
+				<< ch << ": " << matrix[ch - 'A'] << endl;
+			return;
+		}
+	}
+
+	throw MyException("BINNAR EQUATION ERROR");
 }

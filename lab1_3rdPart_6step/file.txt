@@ -1,9 +1,28 @@
-read  ( A, 4) ; % hieuaor
+{
+read(s, 2);
+write(s, 8);
+write(s, 10);
+write(s, 16);
+
+ read(f, 2);
+write(f, 8);
+write(f, 10);
+write(f, 16);
+% example in/out
+}
+
+
+read  ( A, 2) ; % hieuaor
 g := a ! a ; { oi{s% hieuaodf
 e}4oj 
 qj3}
+write(g, 2);
+read(b, 2);
 write ( a, 2) ; % jweoirj
 s := {jofejf} a ! b;
-B := \A; { oi{s% hieuaodf
+write(s, 10);
+B := /A; { oi{s% hieuaodf
 e}4oj 
-qj3} asgafa;
+qj3}
+write(b, 2);
+% example comment reader

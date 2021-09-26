@@ -50,7 +50,7 @@ bool is_convex(int count, ...)
             else if (crossProd > 0)
                 pos = true;
 
-            if (neg && pos) return false; // произошел поворот в разные стороны
+            if (neg && pos) return false; // rotate in different corner
             p1 = p2;
             p2 = p3;
         }

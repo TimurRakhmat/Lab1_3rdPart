@@ -226,7 +226,7 @@ int pirs(int a, int b)
 
 int not_a(int i)
 {
-	int p = (1 << (1 + (int)(log(i) * LOG2N))) - 1; // создаем число по типу: 111111...
+	int p = (1 << (1 + (int)(log(i) * LOG2N))) - 1; // make binnary num: 111111...
 	return (p ^ i);
 }
 

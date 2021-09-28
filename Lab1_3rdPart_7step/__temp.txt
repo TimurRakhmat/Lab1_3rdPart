@@ -3,7 +3,8 @@
 #define decades about 10 years
 #define MAI Moscow Aviation Institute 1930th
 #define FIIT Fundumental &(IT)
-#define MAI
+
+#define but also
 
 
 	The world needs great specialists in mathematics and computer science in our century of digitalization. 

@@ -134,7 +134,6 @@ int main(int argc, char** argv)
 			{
 				buf = "";
 				ht.insert(bufkey, bufvalue);
-				cout << bufkey << "-" << bufvalue;
 				is_key = false;
 				bufkey = "";
 				bufvalue = "";
@@ -162,8 +161,6 @@ int main(int argc, char** argv)
 				fout << b;
 		}
 	}
-	
-	cout << "//end" << endl;
 }
 
 void HashTable::insert(const string key, const string value)

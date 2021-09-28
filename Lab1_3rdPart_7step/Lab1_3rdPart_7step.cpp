@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "../lab1_3rdPart_6step/exceptionsMy.h"
 
 
 using namespace std;
@@ -39,12 +40,13 @@ public:
 };
 
 
-int main()
+int main(int argc, char** argv)
 {
-	string gt[] = { "qeaE123", "qebE123", "qecE123","SDoisdf234", "24FN42ss", "39", "15" }; // (39 and 15) mod 128 == 67
-	string gt2[] = { "wqeaE123", "wqebE123", "wqecE123","wSDoisdf234", "w24FN42ss", "3339", "1115" };
+	//string gt[] = { "qeaE123", "qebE123", "qecE123","SDoisdf234", "24FN42ss", "39", "15" }; // (39 and 15) mod 128 == 67
+	//string gt2[] = { "wqeaE123", "wqebE123", "wqecE123","wSDoisdf234", "w24FN42ss", "3339", "1115" };
 	int ln_gt = 7;
 	HashTable ht;
+	/*
 	for (int i = 0; i < ln_gt; i++)
 	{
 		ht.insert(gt[i], gt2[i]);
@@ -53,9 +55,115 @@ int main()
 	for (int i = 0; i < ln_gt; i++)
 	{
 		cout << ht.find(gt[i]) << endl;
-	}
+	}*/
 
+	if (argc != 2)
+		throw MyException("ERROR missing input file");
+
+	fstream fin(argv[1]);
+	ofstream fout("__temp.txt");
+
+	char b = '/0';
+	bool end_ofdefine = false;
+	string buf = "";
+	string bufkey = "";
+	string bufvalue = "";
+	bool is_key = false;
+	bool is_val = false;
+	while (!fin.eof())
+	{
+		if (!end_ofdefine) {
+			b = fin.get();
+		}
+
+		if (b != '#' and buf == "" and !end_ofdefine)
+		{
+			end_ofdefine = true;
+			fin.seekg(-1, fin.cur);
+			buf = "";
+		}
+
+		if (!end_ofdefine)
+		{
+			if (buf != "#define")
+				buf += b;
+			fout << b;
+
+			if (b == '\n' or b == EOF)
+			{
+				if (bufkey == "" or bufvalue == "")
+				{
+					end_ofdefine = true;
+					buf = "";
+					continue;
+				}
+			}
+
+			if (((string)"#define").find(buf) != 0)
+			{
+				end_ofdefine = true;
+				continue;
+			}
+
+			if (!is_key and bufkey=="")
+			{
+				if (buf == "#define")
+				{
+					is_key = true;
+				}
+				continue;
+			}
+
+			if (isspace(b) and bufkey == "")
+				continue;
+			
+			if (isspace(b))
+				is_key = false;
+
+			if (is_key)
+			{
+				bufkey += b;
+				continue;
+			}
+
+			if (isspace(b) and bufvalue == "")
+				continue;
+
+			is_val = true;
+			if (b == '\n' or b == EOF)
+			{
+				buf = "";
+				ht.insert(bufkey, bufvalue);
+				cout << bufkey << "-" << bufvalue;
+				is_key = false;
+				bufkey = "";
+				bufvalue = "";
+				continue;
+			}
+
+			bufvalue += b;
+		}
+
+		if (end_ofdefine)
+		{
+			b = fin.get();
+			if (!isspace(b))
+				buf += b;
+			else
+			{
+				if (ht.find(buf) != "")
+					fout << ht.find(buf);
+				else
+					fout << buf;
+				buf = "";
+			}
+
+			if (isspace(b))
+				fout << b;
+		}
+	}
 	
+	cout << "//end" << endl;
 }
 
 void HashTable::insert(const string key, const string value)

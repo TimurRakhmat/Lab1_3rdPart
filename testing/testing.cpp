@@ -4,10 +4,17 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <fstream>
 using namespace std;
 
  
 int main()
 {
-    cout << 138 % 7;
+    fstream fin("input.txt");
+    while (!fin.eof())
+    {
+        string buf;
+        getline(fin, buf);
+        cout << buf << endl;
+    }
 }

@@ -12,7 +12,7 @@ void reverse(char* s);
 int main()
 {
     char* buf;
-    calc(&buf, 16, 4, "1A", "1", "100000000000000000000000000000111", "1");
+    calc(&buf, 16, 4, "1A", "7000DFB0000000D000000000", "7000DFB0000000D000000000", "1");
     reverse(buf);
     cout << buf << endl;
     free(buf);

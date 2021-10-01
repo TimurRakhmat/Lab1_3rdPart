@@ -22,7 +22,9 @@ int main()
 void calc(char** bufptr, int base, int count, ...)
 {
     char* buf = *bufptr;
-    buf = (char*)calloc(BUFSIZ, sizeof(char));
+    int len = 4;
+    int delta = len;
+    buf = (char*)calloc(len, sizeof(char));
     buf[0] = '0';
     char* current_dig;
     va_list argptr;
@@ -30,6 +32,10 @@ void calc(char** bufptr, int base, int count, ...)
     for (; count; count--)
     {
         current_dig = va_arg(argptr, char*);
+        if (strlen(current_dig) > len - 1) {
+            buf = (char*)realloc(buf, sizeof(char) *2* (strlen(current_dig)));
+            len = 2 * strlen(current_dig);
+        }
         gorner_sum(base, current_dig, &buf);
     }
 

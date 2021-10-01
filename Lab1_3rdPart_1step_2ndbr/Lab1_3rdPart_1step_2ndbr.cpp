@@ -13,9 +13,14 @@ void print_map(map<string, bool>);
 
 int main()
 {
-    string substr = "asu\nasu";
-    cout << "substr: " << substr << " was founded in that files: " << endl;
-    print_map(findtr(find_sub, substr, 3, "book.txt", "map.txt", "table.txt"));
+    string substr = "aus\nasu";
+    if (substr == "")
+        cout << "empty string" << endl;
+    else
+    {
+        cout << "substr: " << substr << " was founded in that files: " << endl;
+        print_map(findtr(find_sub, substr, 3, "book.txt", "map.txt", "table.txt"));
+    }
 }
 
 

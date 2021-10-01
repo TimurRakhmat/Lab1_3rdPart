@@ -11,8 +11,11 @@ void print_map(map<char*, int>);
 
 int main() 
 {
-    char substr[] = "b";
-    print_map(findtr(find_sub, substr, 3, "book.txt", "map.txt", "table.txt"));
+    char substr[] = "";
+    if (strlen(substr) > 0)
+        print_map(findtr(find_sub, substr, 3, "book.txt", "map.txt", "table.txt"));
+    else
+        cout << "empty string" << endl;
 }
 
 int find_sub(char* substr, char* fname)

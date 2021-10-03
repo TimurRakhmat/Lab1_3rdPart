@@ -7,14 +7,14 @@ int get_dig(char);
 char get_chr(int);
 void gorner_sum(int base, char* str, char** buf);
 void calc(char**, int base, int count, ...);
-void reverse(char* s);
+char* reverse(char* s);
 
 int main()
 {
-    char* buf;
-    calc(&buf, 16, 4, "1A", "7000DFB0000000D000000000", "7000DFB0000000D000000000", "1");
-    reverse(buf);
-    cout << buf << endl;
+    char* buf, *ans;
+    calc(&buf, 16, 4, "000000000000000000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1110", "0", "1", "F");
+    //calc(&buf, 16, 4, "0", "0", "0", "0");
+    ans = reverse(buf);    cout << ans << endl;
     free(buf);
 }
 
@@ -22,7 +22,7 @@ int main()
 void calc(char** bufptr, int base, int count, ...)
 {
     char* buf = *bufptr;
-    int len = 4;
+    int len = 2;
     int delta = len;
     buf = (char*)calloc(len, sizeof(char));
     buf[0] = '0';
@@ -43,8 +43,9 @@ void calc(char** bufptr, int base, int count, ...)
 }
 
 
-void reverse(char *s)
+char* reverse(char *s)
 {
+    char* p;
     int length = strlen(s);
     int c, i, j;
 
@@ -54,6 +55,14 @@ void reverse(char *s)
         s[i] = s[j];
         s[j] = c;
     }
+    char* pp = s;
+    for (; *s != '\0'; s++)
+    {
+        if (*s != '0')
+            return s;
+    }
+    if (*(pp - 1) == '0')
+        return (pp - 1);
 }
 
 

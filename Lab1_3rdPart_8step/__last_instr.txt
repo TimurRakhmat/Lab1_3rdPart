@@ -1,0 +1,12 @@
+= eq
+add add
+div div
+input input
+mult mult
+output output
+pow pwer
+rem rem
+sub minus
+xor is2
+right=
+(op)()

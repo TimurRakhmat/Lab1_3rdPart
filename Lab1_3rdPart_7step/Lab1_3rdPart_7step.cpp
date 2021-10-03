@@ -42,20 +42,7 @@ public:
 
 int main(int argc, char** argv)
 {
-	//string gt[] = { "qeaE123", "qebE123", "qecE123","SDoisdf234", "24FN42ss", "39", "15" }; // (39 and 15) mod 128 == 67
-	//string gt2[] = { "wqeaE123", "wqebE123", "wqecE123","wSDoisdf234", "w24FN42ss", "3339", "1115" };
-	int ln_gt = 7;
 	HashTable ht;
-	/*
-	for (int i = 0; i < ln_gt; i++)
-	{
-		ht.insert(gt[i], gt2[i]);
-	}
-
-	for (int i = 0; i < ln_gt; i++)
-	{
-		cout << ht.find(gt[i]) << endl;
-	}*/
 
 	if (argc != 2)
 		throw MyException("ERROR missing input file");
@@ -171,7 +158,7 @@ void HashTable::insert(const string key, const string value)
 		return;
 	}
 
-	Node* p = &hashtable[index];
+	Node* p = hashtable + index;
 	while (p->pnode != nullptr)
 	{
 		p = p->pnode;
@@ -183,7 +170,7 @@ string HashTable::find(const string key)
 {
 	int index = hash_func(key, HASHSIZE);
 
-	Node* p = &hashtable[index];
+	Node* p = hashtable + index;
 	while (p->key != key)
 	{
 		p = p->pnode;
@@ -204,7 +191,7 @@ int HashTable::get_dig(char bchr)
 	if (isdigit(bchr))
 		return bchr - '0';
 	if (isalpha(bchr))
-		if (bchr == toupper(bchr))
+		if (isupper(bchr)) // isupper
 			return bchr - 'A' + 10;
 		else
 			return bchr - 'a' + 10 + 'Z' - 'A' + 1;
@@ -232,7 +219,7 @@ int HashTable::gorner(string str, int base, int siz)
 void HashTable::deleteNodeList(int index)
 {
 	Node* p = hashtable[index].pnode;
-	Node* pp = &hashtable[index];
+	Node* pp = hashtable + index;
 	while (p->pnode != nullptr)
 	{	
 		pp = p;

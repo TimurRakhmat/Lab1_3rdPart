@@ -22,5 +22,13 @@
   <ItemGroup>
     <Text Include="__last_instr.txt" />
     <Text Include="inst.txt" />
+    <Text Include="file.txt" />
+    <Text Include="file_bin_op.txt" />
+    <Text Include="file_eq_right.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lab1_3rdPart_8step.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

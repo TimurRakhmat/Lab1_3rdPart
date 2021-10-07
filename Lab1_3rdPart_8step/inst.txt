@@ -1,5 +1,5 @@
-= eq
-	 xor 	 is2 #####
+=	<->
+xor 	 is2 #####
 #wewer
 	pow pwer
 (op)() # jsodfjois

@@ -142,8 +142,14 @@
     <ClCompile Include="Lab1_3rdPart_8step.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="file.txt" />
+    <Text Include="file_bin_op.txt" />
+    <Text Include="file_eq_right.txt" />
     <Text Include="inst.txt" />
     <Text Include="__last_instr.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lab1_3rdPart_8step.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

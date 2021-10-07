@@ -1,0 +1,8 @@
+%a := input;
+	( a )read;
+	
+	%g := (2)input;
+	 (a, g) is2 := b;
+	(b,2) read;
+	(a, g)add := b;
+	(b)read;

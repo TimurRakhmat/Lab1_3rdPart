@@ -1,4 +1,6 @@
-{
+% я хочу с помощью string.find находить знак =, затем уже по правилам из_лефт парсить левую и правую часть
+% выражения
+[
 read(s, 2);
 write(s, 8);
 write(s, 10);
@@ -9,20 +11,50 @@ write(f, 8);
 write(f, 10);
 write(f, 16);
 % example in/out
-}
+]
+[
+	%a := input;
+	( a )read;
+	
+	%g := (2)input;
+	b := (a, g) is2;
+	(b,2) read;
+	b := (a, g)add;
+	(b)read;
+]
+[
+	%a := input;
+	( a )read;
+	
+	%g := (2)input;
+	 (a, g) is2 := b;
+	(b,2) asfe read;
+	(a, g) sfew add := b;
+	(b)read;
+]
 
 
+	%a := input;
+	read( a );
+	
+	%g := (2)input;
+	is2 uoewr (a, g) := b;
+	read (b, 3);
+
+
+[
 read  ( A, 2) ; % hieuaor
-g := a ! a ; { oi{s% hieuaodf
-e}4oj 
-qj3}
+g := a ! a ; [ oi[s% hieuaodf
+e]4oj 
+qj3]
 write(g, 2);
 read(b, 2);
 write ( a, 2) ; % jweoirj
-s := {jofejf} a ! b;
+s := [jofejf] a ! b;
 write(s, 10);
-B := /A; { oi{s% hieuaodf
-e}4oj 
-qj3}
+B := /A; [ oi[s% hieuaodf
+e]4oj 
+qj3]
 write(b, 2);
 % example comment reader
+]

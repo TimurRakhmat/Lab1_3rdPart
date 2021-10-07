@@ -33,7 +33,7 @@ write(f, 16);
 	(b)read;
 ]
 
-
+[
 	%a := input;
 	read( a );
 	
@@ -41,7 +41,7 @@ write(f, 16);
 	is2(a, g) := b;
 	read (b, 3);
 
-
+]
 [
 read  ( A, 2) ; % hieuaor
 g := a ! a ; [ oi[s% hieuaodf
@@ -58,3 +58,14 @@ qj3]
 write(b, 2);
 % example comment reader
 ]
+
+
+in(2) eq g;
+print(g, 10);
+
+pow (g,	 4)  eq r;
+34 eq r;
+gum (g, r) eq h;
+print(gel, 2);
+print(r, 2);
+print(h);

@@ -1,12 +1,12 @@
-= :=
-add add
-div div
-input input
+= eq
+add gum
+div gel
+input in
 mult mult
-output read
-pow pwer
+output print
+pow pow
 rem rem
-sub minus
-xor is2
+sub sub
+xor xor
 right=
 op()

@@ -1,8 +1,8 @@
-=	<->
-xor 	 is2 #####
-#wewer
-	pow pwer
-(op)() # jsodfjois
-sub minus # minus
-	right= 
+= eq
+right=
+op()
+add gum
+div gel
+output print
+input in
 

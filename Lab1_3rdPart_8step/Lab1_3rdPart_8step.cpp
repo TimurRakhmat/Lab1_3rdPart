@@ -5,6 +5,7 @@
 #include <functional>
 #include <string>
 #include <map>
+#include <set>
 
 
 using namespace std;
@@ -17,6 +18,7 @@ private:
     void pars_str(const string&);
     bool read_state(const string&, int);
     void print_rule(ostream& out);
+    void init(string fin);
     map <string, bool> is_set = {
         {"add", false},
         { "mult", false },
@@ -45,13 +47,13 @@ public:
         {"=", "="},
         {"output", "output"}
     };
+    set <string> values;
     bool eq_left = true; // = pos
     bool op_left = true; // command pos
     bool bin_op_mid = false;
     string fname = "__last_instr.txt";
     string oname = "";
     Instruct(string fin);
-    void init(string fin);
     Instruct();
     ~Instruct();
 };
@@ -91,6 +93,7 @@ string strip(const string&);
 int get_dig(char);
 char get_chr(int);
 int gorner(int, string);
+bool is_digit_string(string line);
 string in_gorner(int, int);
 
 int main(int argc, char** argv)
@@ -210,7 +213,7 @@ void InterpreterParser::parse_line(const string& line) {
     }
 }
 
-string InterpreterParser::parse_leq(const string& line) { //y
+string InterpreterParser::parse_leq(const string& line) { 
     if (!line.empty() and line.find(' ') == -1 and !isdigit(line[0]))
     {
         int ln = line.length();
@@ -223,13 +226,14 @@ string InterpreterParser::parse_leq(const string& line) { //y
                 throw MyException(ex);
             }
         }
-        return line;
+        if (inst.values.find(line) == inst.values.end())
+            return line;
     }
     string ex = "ERROR: " + line + "- bad variable name";
     throw MyException(ex);
 }
 
-string InterpreterParser::parse_int(const string& line) { //y
+string InterpreterParser::parse_int(const string& line) { 
     if (!line.empty() and line.find(' ') == -1)
     {
         int ln = line.length();
@@ -268,6 +272,7 @@ int InterpreterParser::parse_req(const string& line) { //x
     }
     if (pos == -1)
     {
+        return gorner(10, line);
         string ex = "ERROR: " + line + " - unknown command";
         throw MyException(ex);
     }
@@ -275,9 +280,18 @@ int InterpreterParser::parse_req(const string& line) { //x
     {
         if (pos > 0 and (pos + inst.rule[com].length() < ln - 1))
         {
-            string lv1 = parse_leq(strip(line.substr(0, pos - 1)));
-            string lv2 = parse_leq(strip(line.substr(pos + inst.rule[com].length() + 1)));
-            return func[num](vars[lv1], vars[lv2]);
+            string lv1 = strip(line.substr(0, pos - 1));
+            string lv2 = strip(line.substr(pos + inst.rule[com].length() + 1));
+            int a = 0, b = 0;
+            if (is_digit_string(lv1))
+                a = gorner(10, lv1);
+            else
+                a = vars[parse_leq(lv1)];
+            if (is_digit_string(lv2))
+                b = gorner(10, lv2);
+            else
+                b = vars[parse_leq(lv2)];
+            return func[num](a, b);
         }
         string ex = "ERROR: " + line + " - unknown command";
         throw MyException(ex);
@@ -316,9 +330,18 @@ int InterpreterParser::parse_req(const string& line) { //x
     }
     else
     {
-        lv1 = parse_leq(strip(eq.substr(0, pos_ap)));
-        lv2 = parse_leq(strip(eq.substr(pos_ap + 1)));
-        return func[num](vars[lv1], vars[lv2]);
+        lv1 = strip(eq.substr(0, pos_ap));
+        lv2 = strip(strip(eq.substr(pos_ap + 1)));
+        int a = 0, b = 0;
+        if (is_digit_string(lv1))
+            a = gorner(10, lv1);
+        else
+            a = vars[parse_leq(lv1)];
+        if (is_digit_string(lv2))
+            b = gorner(10, lv2);
+        else
+            b = vars[parse_leq(lv2)];
+        return func[num](a, b);
     }
 }
 
@@ -491,7 +514,6 @@ Instruct::~Instruct()
         return;
     ofstream ofn(fname);
     print_rule(ofn);
-    print_rule(cout);
     ofn.close();
 }
 
@@ -552,6 +574,12 @@ void Instruct::pars_str(const string &buf)
                     string errorstr = "ERROR repeat command: redefinition " + buf;
                     throw MyException(errorstr);
                 }
+                if (values.find(r_s) != values.end())
+                {
+                    string errorstr = "ERROR repeat command: redefinition " + l_s;
+                    throw MyException(errorstr);
+                }
+                values.insert(r_s);
                 rule[l_s] = r_s;
                 is_set[l_s] = true;
                 return;
@@ -618,6 +646,29 @@ bool Instruct::read_state(const string &buf, int ln)
     return true;
 }
 
+bool is_digit_string(string line)
+{
+    if (!line.empty() and line.find(' ') == -1)
+    {
+        int ln = line.length(), i = 0;
+        if (line[0] == '-')
+        {
+            i++;
+        }
+        while (i != ln)
+        {
+            char c = line[i];
+            if (!isdigit(c))
+            {
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+    return false;
+}
+
 string strip(const string &line)
 {
     int b = 0, end = -1;
@@ -657,6 +708,8 @@ string in_gorner(int base, int num)
 
 int gorner(int base, string str)
 {
+    if (str.empty())
+        return 0;
     bool sgn = 1;
     int ans = 0;
     int ln = str.length(), i = 0;

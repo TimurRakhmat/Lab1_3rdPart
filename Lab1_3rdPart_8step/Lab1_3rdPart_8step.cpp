@@ -287,14 +287,14 @@ int InterpreterParser::parse_req(const string& line) { //x
     int pos_lb = line.find('(');
 
     if (inst.op_left) {
-        if (pos != 0 or pos_rb != ln)
+        if (pos != 0 or pos_rb != ln - 1 or !strip(line.substr(pos + inst.rule[com].length(), pos_lb - pos - inst.rule[com].length())).empty())
         {
             string ex = "ERROR: " + line + " - bad operation position";
             throw MyException(ex);
         }
     }
     else
-        if (pos + inst.rule[com].length() != ln or pos_lb != 0)
+        if (pos + inst.rule[com].length() != ln or pos_lb != 0 or !strip(line.substr(pos_rb, pos - pos_rb)).empty())
         {
             string ex = "ERROR: " + line + " - bad operation position";
             throw MyException(ex);
@@ -350,14 +350,14 @@ void InterpreterParser::parse_out(const string& line) {
     }
 
     if (inst.op_left) {
-        if (pos != 0 or pos_rb != ln - 1)
+        if (pos != 0 or pos_rb != ln - 1 or !strip(line.substr(pos + _out.length(), pos_lb - pos - _out.length())).empty())
         {
             string ex = "ERROR: " + line + " - bad operation position";
             throw MyException(ex);
         }
     }
     else
-        if (pos + _out.length() != ln or pos_lb != 0)
+        if (pos + _out.length() != ln or pos_lb != 0 or !strip(line.substr(pos_rb, pos - pos_rb)).empty())
         {
             string ex = "ERROR: " + line + " - bad operation position";
             throw MyException(ex);
@@ -376,6 +376,11 @@ void InterpreterParser::parse_out(const string& line) {
         lv = parse_leq(eq);
     else
     {
+        if (inst.bin_op_mid)
+        {
+            string ex = "ERROR: " + line + " - bad operation position";
+            throw MyException(ex);
+        }
         lv = parse_leq(strip(eq.substr(0, pos_ap)));
         base = gorner(10, parse_int(strip(eq.substr(pos_ap + 1))));
     }
@@ -615,7 +620,7 @@ bool Instruct::read_state(const string &buf, int ln)
 
 string strip(const string &line)
 {
-    int b = 0, end = 0;
+    int b = 0, end = -1;
     int ln = line.length();
     for (int i = 0; i < ln; i++)
         if (!isspace(line[i]))
@@ -623,7 +628,7 @@ string strip(const string &line)
             b = i;
             break;
         }
-    for (int i = ln - 1; i > 0; i--)
+    for (int i = ln - 1; i >= 0; i--)
         if (!isspace(line[i]))
         {
             end = i;

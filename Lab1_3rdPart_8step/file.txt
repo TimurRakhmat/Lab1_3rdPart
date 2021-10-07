@@ -38,7 +38,7 @@ write(f, 16);
 	read( a );
 	
 	%g := (2)input;
-	is2 uoewr (a, g) := b;
+	is2(a, g) := b;
 	read (b, 3);
 
 

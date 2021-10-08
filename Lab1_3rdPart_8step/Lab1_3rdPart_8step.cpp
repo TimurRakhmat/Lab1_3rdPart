@@ -368,6 +368,7 @@ void InterpreterParser::parse_out(const string& line) {
             string ex = "ERROR: " + in_gorner(10, base) + "base out of range[2, 36]";
             throw MyException(ex);
         }
+        cout << lv << ": ";
         cout << in_gorner(base, vars[lv]) << endl;
         return;
     }
@@ -412,6 +413,7 @@ void InterpreterParser::parse_out(const string& line) {
         string ex = "ERROR: " + in_gorner(10, base) + "base out of range[2, 36]";
         throw MyException(ex);
     }
+    cout << lv << ": ";
     cout << in_gorner(base, vars[lv]) << endl;
 }
 
@@ -691,10 +693,11 @@ string strip(const string &line)
 string in_gorner(int base, int num)
 {
     string ans = "";
+    bool sgn = false;
     if (num < 0)
     {
         num *= -1;
-        ans += '-';
+        sgn = true;
     }
 
     while (num) {
@@ -703,6 +706,8 @@ string in_gorner(int base, int num)
     }
     if (ans == "")
         ans += '0';
+    if (sgn)
+        ans = '-' + ans;
     return ans;
 }
 
@@ -710,7 +715,7 @@ int gorner(int base, string str)
 {
     if (str.empty())
         return 0;
-    bool sgn = 1;
+    int  sgn = 1;
     int ans = 0;
     int ln = str.length(), i = 0;
     if (str[0] == '-')

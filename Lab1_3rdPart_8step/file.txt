@@ -61,11 +61,12 @@ write(b, 2);
 
 
 in(2) eq g;
+in(16) eq _jiwe345;
 print(g, 10);
-
+print(_jiwe345);
 pow (g,	 4)  eq r;
-34 eq r;
+-34 eq r;
 gum (g, r) eq h;
-print(gel, 2);
+print(g, 2);
 print(r, 2);
 print(h);

@@ -118,7 +118,7 @@ int main(int argc, char** argv)
                 {
                     i_name = argv[3];
                     _inst = new Instruct(i_name);
-                    cout << "intstructions from " << fname << "were applied" << endl;
+                    cout << "intstructions from " << i_name << " were applied" << endl;
                 }
             }
         }
@@ -130,7 +130,7 @@ int main(int argc, char** argv)
         // command args
         
         InterpreterParser tip(fname, *_inst);
-        
+        delete _inst;
     }
     catch (MyException exc) {
         cout << '\n' << exc.what() << endl;
